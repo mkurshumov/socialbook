@@ -1,0 +1,143 @@
+//* {
+//  margin: 0;
+//}
+
+body, html {
+  height: 100%;
+}
+
+$main-color01: #E0F7FA;
+$main-color02: #B2EBF2;
+$main-color03: #80DEEA;
+$main-color04: #4dd0E1;
+$main-color05: #26C6DA;
+$main-color: #00BCD4;
+$main-color10: #00ACC1;
+$main-color20: #0097A7;
+$main-color30: #00838F;
+$main-color40: #006064;
+
+$sec-color01: #FFF3E0;
+$sec-color02: #FFE0B2;
+$sec-color03: #FFCC80;
+$sec-color04: #FFB74D;
+$sec-color05: #FFA726;
+$sec-color: #FF9800;
+$sec-color10: #FB8C00;
+$sec-color20: #F57C00;
+$sec-color30: #EF6C00;
+$sec-color40: #E65100;
+
+.b {
+  border: 1px solid black;
+}
+.link {
+  color: $main-color;
+  text-decoration: underline;
+  &:hover {
+    color: $sec-color;
+    text-decoration: none;
+  }
+}
+.flex {
+  display: flex;
+  flex: 1;
+}
+
+//overrides
+.md-input-container {
+  margin: 0;
+}
+
+//text properties
+.txt-main-color {
+  color: $main-color;
+}
+.txt-sec-color {
+  color: $sec-color;
+}
+.txt-grey-color {
+  color: #777674;
+}
+.txt-center {
+  text-align: center;
+}
+
+//margins
+.center {
+  display: flex;
+  justify-content: center;
+}
+.no-margin {
+  margin: 0;
+}
+.margin-auto {
+  margin: auto;
+}
+.margin-top10 {
+  margin-top: 10px;
+}
+.margin-top40 {
+  margin-top: 40px;
+}
+.margin-top25 {
+  margin-top: 25px;
+}
+.margin-right15 {
+  margin-right: 15px;
+}
+.margin-right8 {
+  margin-right: 8px!important;
+}
+.margin-left50 {
+  margin-left: 50px;
+}
+.margin-left40 {
+  margin-left: 40px;
+}
+
+//floats
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+
+//widths
+.full-width {
+  width: 100%;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.public-container {
+  background: url('assets/background.jpg') no-repeat fixed;
+  background-size: cover;
+  height: 100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-container, .register-container {
+  border-radius: 60px;
+  margin: auto;
+  padding: 30px;
+  width: 500px;
+  background: rgba(white, 0.7);
+}
+.login-container {
+  height: 520px;
+}
+.register-container {
+  height: 610px;
+}
+.inner-login-container, .inner-register-container {
+  margin-top: 50px;
+}
+.login-inner-text {
+  color: $sec-color;
+}

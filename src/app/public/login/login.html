@@ -1,0 +1,39 @@
+<div class="login-container md-whiteframe-10dp">
+
+  <h1 class="txt-main-color txt-center">Login</h1>
+
+  <div class="inner-login-container">
+    <form name="loginForm">
+      <div class="full-width flex">
+        <i class="material-icons margin-top25 margin-right15 txt-main-color">account_circle</i>
+        <md-input-container class="md-icon-float full-width">
+          <label for="username">Username</label>
+          <input id="username" ng-model="user.name" type="text" required>
+        </md-input-container>
+      </div>
+
+      <div class="full-width flex">
+        <i class="material-icons margin-top25 margin-right15 txt-main-color">lock</i>
+        <md-input-container class="md-icon-float full-width">
+          <label for="password">Password</label>
+          <input id="password" ng-model="user.password" type="password" required>
+        </md-input-container>
+      </div>
+
+      <md-button class="md-primary float-left margin-left40">Forgot Password?</md-button>
+
+      <md-checkbox class="md-primary txt-grey-color float-right margin-top10 margin-right8">Remember Me</md-checkbox>
+
+      <div class="clearfix"></div>
+
+      <md-button class="md-raised md-primary full-width margin-top40 no-margin" ng-disabled="loginForm.$invalid">LOGIN</md-button>
+    </form>
+
+    <div class="txt-center margin-top10">
+      or
+    </div>
+
+    <md-button class="md-primary center margin-top10 no-margin" ui-sref="public.register">Register</md-button>
+  </div>
+
+</div>
