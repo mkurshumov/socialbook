@@ -25,6 +25,33 @@
         $window.sessionStorage.clear();
       };
 
+      // Check if authenticated
+      authenticationService.isLoggedIn = isLoggedIn();
+
+      function isLoggedIn() {
+        var sessionStorage = $window.sessionStorage.getItem('credentials');
+        var localStorage = $window.localStorage.getItem('credentials');
+
+        console.log(sessionStorage);
+        console.log(localStorage);
+
+        if (sessionStorage) {
+          if (sessionStorage == 'qweqwe') {
+            return true;
+          } else {
+            return false;
+          }
+        } else if (localStorage) {
+          if (localStorage == 'qweqwe') {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
+
       return authenticationService
     }
 

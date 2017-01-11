@@ -15,7 +15,14 @@
         abstract: true,
         controller: 'PublicController',
         controllerAs: 'public',
-        templateUrl: 'app/public/public.html'
+        templateUrl: 'app/public/public.html',
+        resolve: {
+          isAuthenticated: function (authenticationService, $location) {
+            if (authenticationService.isLoggedIn) {
+              $location.path('/dashboard');
+            }
+          }
+        }
       })
 
         .state('public.login', {
@@ -35,7 +42,14 @@
         abstract: true,
         controller: 'PrivateController',
         controllerAs: 'private',
-        templateUrl: 'app/private/private.html'
+        templateUrl: 'app/private/private.html',
+        resolve: {
+          isAuthenticated: function (authenticationService, $location) {
+            if (!authenticationService.isLoggedIn) {
+              $location.path('/login');
+            }
+          }
+        }
       })
 
         .state('private.dashboard', {
