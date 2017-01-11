@@ -83,6 +83,9 @@ $sec-color40: #E65100;
 .margin-top25 {
   margin-top: 25px;
 }
+.margin-top13 {
+  margin-top: 13px;
+}
 .margin-right15 {
   margin-right: 15px;
 }
@@ -126,7 +129,7 @@ $sec-color40: #E65100;
   border-radius: 60px;
   margin: auto;
   padding: 30px;
-  width: 500px;
+  //width: 500px;
   background: rgba(white, 0.7);
 }
 .login-container {
@@ -140,4 +143,9 @@ $sec-color40: #E65100;
 }
 .login-inner-text {
   color: $sec-color;
+}
+
+//Phone
+@media screen and (max-width: 767px) {
+  @import "styles/phone.scss";
 }

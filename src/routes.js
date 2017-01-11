@@ -36,7 +36,14 @@
         controller: 'PrivateController',
         controllerAs: 'private',
         templateUrl: 'app/private/private.html'
-      });
+      })
+
+        .state('private.dashboard', {
+          url: '/dashboard',
+          controller: 'DashboardController',
+          controllerAs: 'dashboard',
+          templateUrl: 'app/private/dashboard/dashboard.html'
+        });
   }
 
 })();
