@@ -147,5 +147,5 @@ $sec-color40: #E65100;
 
 //Phone
 @media screen and (max-width: 767px) {
-  @import "styles/phone.scss";
+  @import "styles/_phone.scss";
 }

@@ -8,7 +8,7 @@
   /** @ngInject */
   function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true).hashPrefix('!');
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/login');
 
     $stateProvider
       .state('public', {
@@ -20,6 +20,7 @@
           isAuthenticated: function (authenticationService, $location) {
             if (authenticationService.isLoggedIn) {
               $location.path('/dashboard');
+              // $window.location.href = '/dashboard';
             }
           }
         }
@@ -47,6 +48,7 @@
           isAuthenticated: function (authenticationService, $location) {
             if (!authenticationService.isLoggedIn) {
               $location.path('/login');
+              // $window.location.href = '/login';
             }
           }
         }

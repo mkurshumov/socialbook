@@ -1,12 +1,9 @@
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('socialbook')
-    .controller('LoginController', LoginController);
-
-    /** @ngInject */
-    function LoginController(authenticationService, $location){
+    .controller('LoginController', function (authenticationService, $location, $window) {
       var vm = this;
 
       vm.mockedCredentials = {
@@ -23,7 +20,7 @@
       vm.login = function () {
         console.log(vm.user);
         if (vm.mockedCredentials.username == vm.credentials.username
-            && vm.mockedCredentials.password == vm.credentials.password) {
+          && vm.mockedCredentials.password == vm.credentials.password) {
 
           if (vm.credentials.remember == true) {
             authenticationService.setLocalStorage(vm.credentials.username);
@@ -32,12 +29,12 @@
           }
 
           console.log('Successful login');
-          $location.path('/dashboard');
+
+          $window.location.href = '/dashboard';
         } else {
           console.log('Wrong credentials');
         }
       }
-
-    }
+    });
 
 })();

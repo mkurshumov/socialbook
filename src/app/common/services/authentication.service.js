@@ -36,23 +36,15 @@
         console.log(localStorage);
 
         if (sessionStorage) {
-          if (sessionStorage == 'qweqwe') {
-            return true;
-          } else {
-            return false;
-          }
+          return sessionStorage == 'qweqwe';
         } else if (localStorage) {
-          if (localStorage == 'qweqwe') {
-            return true;
-          } else {
-            return false;
-          }
+          return localStorage == 'qweqwe';
         } else {
           return false;
         }
       }
 
-      return authenticationService
+      return authenticationService;
     }
 
 })();
