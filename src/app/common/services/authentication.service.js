@@ -32,9 +32,6 @@
         var sessionStorage = $window.sessionStorage.getItem('credentials');
         var localStorage = $window.localStorage.getItem('credentials');
 
-        console.log(sessionStorage);
-        console.log(localStorage);
-
         if (sessionStorage) {
           return sessionStorage == 'qweqwe';
         } else if (localStorage) {

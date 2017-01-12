@@ -9,7 +9,17 @@
         <i class="material-icons margin-top25 margin-right15 txt-main-color">account_circle</i>
         <md-input-container class="md-icon-float full-width">
           <label for="username">Username</label>
-          <input id="username" ng-model="user.name" type="text" required>
+          <input id="username" name="username" ng-model="user.name" type="text" required
+                 ng-maxlength="8" ng-minlength="3">
+
+          <div ng-messages="registerForm.username.$error" role="alert">
+            <div ng-message="maxlength">
+              Username cannot be more than 8 characters.
+            </div>
+            <div ng-message="minlength">
+              Username cannot be less than 3 characters.
+            </div>
+          </div>
         </md-input-container>
       </div>
 
