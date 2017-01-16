@@ -48,6 +48,17 @@ $sec-color40: #E65100;
 .md-input-container {
   margin: 0;
 }
+md-autocomplete, md-autocomplete md-autocomplete-wrap, md-autocomplete input:not(.md-input) {
+  height: 30px!important;
+}
+md-autocomplete {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+.material-icons {
+  font-size: 26px;
+}
 
 //text properties
 .txt-main-color {
@@ -59,8 +70,16 @@ $sec-color40: #E65100;
 .txt-grey-color {
   color: #777674;
 }
+.txt-white-color {
+  color: white;
+}
 .txt-center {
   text-align: center;
+}
+
+//vertical aligns
+.va-mid {
+  vertical-align: middle;
 }
 
 //margins
@@ -125,6 +144,87 @@ $sec-color40: #E65100;
   align-items:center;
 }
 
+.private-container {
+  //border: 1px solid black;
+}
+
+
+//dashboard
+.dashboard-container {
+  padding: 53px 20% 0 20%;
+  //border: 1px solid black;
+}
+
+.navbar {
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  padding: 10px 0 10px 0;
+  background: $main-color30; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient($main-color30, $main-color40); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient($main-color30, $main-color40); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient($main-color30, $main-color40); /* For Firefox 3.6 to 15 */
+  background: linear-gradient($main-color30, $main-color40); /* Standard syntax */
+}
+
+.search-bar {
+  width: 400px!important;
+  border: 0.5px solid white;
+}
+
+.search-bar-inner {
+  width: 367px !important;
+}
+
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  margin-right: 5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+}
+
+.profile-name {
+  margin-right: 5px;
+}
+
+.v-divider {
+  height: 20px;
+  border: 0.5px solid white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+.friends-requests-icon, .notifications-icon, .settings, .logout-btn-icon {
+  margin-left: 5px;
+  opacity: 0.65;
+  &:hover {
+    color: black;
+    cursor: pointer;
+  }
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  margin-right: 20px;
+  //margin-left: 400px;
+  margin-left: 20%;
+}
+.nav-tools {
+  //margin-right: 400px;
+  margin-right: 20%;
+}
+
+
+//login & register
 .login-container, .register-container {
   border-radius: 60px;
   margin: auto;

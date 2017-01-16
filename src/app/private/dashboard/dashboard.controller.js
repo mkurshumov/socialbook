@@ -10,6 +10,8 @@
         authenticationService.clearWebStorages();
         $window.location.href = '/login';
       }
+
+
     });
 
 })();

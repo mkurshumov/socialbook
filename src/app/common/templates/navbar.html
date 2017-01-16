@@ -1,0 +1,46 @@
+<div class="navbar">
+  <div class="logo inline-block va-mid">S</div>
+
+  <div class="inline-block">
+    <form ng-submit="$event.preventDefault()" class="inline-block search-bar">
+      <md-autocomplete class="inline-block search-bar-inner"
+                       md-selected-item="ctrl.selectedItem"
+                       md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                       md-search-text="ctrl.searchText"
+                       md-selected-item-change="ctrl.selectedItemChange(item)"
+                       md-items="item in ctrl.querySearch(ctrl.searchText)"
+                       md-item-text="item.display"
+                       md-min-length="0"
+                       placeholder="Search">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+        </md-item-template>
+        <md-not-found>
+          No states matching "{{ctrl.searchText}}" were found.
+          <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+        </md-not-found>
+      </md-autocomplete>
+      <i class="material-icons va-mid inline-block txt-white-color search-btn">search</i>
+    </form>
+  </div>
+
+  <div class="nav-tools float-right">
+    <div class="profile-pic inline-block va-mid">P</div>
+    <div class="inline-block profile-name">Name</div>
+    <div class="v-divider inline-block va-mid"></div>
+    <div class="friends-requests-icon inline-block va-mid">
+      <i class="material-icons">people</i>
+    </div>
+    <div class="notifications-icon inline-block va-mid">
+      <i class="material-icons">notifications</i>
+    </div>
+    <div class="v-divider inline-block va-mid"></div>
+    <div class="settings inline-block va-mid">
+      <i class="material-icons">settings</i>
+    </div>
+    <div class="logout-btn-icon inline-block va-mid" ng-click="dashboard.logout()">
+      <i class="material-icons">power_settings_new</i>
+    </div>
+  </div>
+
+</div>
