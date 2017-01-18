@@ -176,6 +176,17 @@ md-autocomplete {
   width: 367px !important;
 }
 
+.profile-block {
+  padding: 3px;
+  &:hover {
+    //background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba($main-color, 0.2);
+    //background-color: darken($main-color, );
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
 .profile-pic {
   width: 30px;
   height: 30px;
@@ -188,6 +199,8 @@ md-autocomplete {
 
 .profile-name {
   margin-right: 5px;
+  color: white;
+  opacity: 0.65;
 }
 
 .v-divider {
@@ -202,8 +215,10 @@ md-autocomplete {
 }
 
 .friends-requests-icon, .notifications-icon, .settings, .logout-btn-icon {
+  color: white;
   margin-left: 5px;
   opacity: 0.65;
+  outline: none;
   &:hover {
     color: black;
     cursor: pointer;

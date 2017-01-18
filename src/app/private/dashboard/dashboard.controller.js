@@ -3,13 +3,8 @@
 
   angular
     .module('socialbook')
-    .controller('DashboardController', function (authenticationService, $location, $window) {
+    .controller('DashboardController', function () {
       var vm = this;
-
-      vm.logout = function () {
-        authenticationService.clearWebStorages();
-        $window.location.href = '/login';
-      }
 
 
     });

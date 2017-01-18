@@ -13,7 +13,6 @@
       function resolve(res) {
         return deferred.resolve(res);
       }
-
       function reject(err) {
         return deferred.reject(err);
       }
@@ -28,7 +27,6 @@
 
         return deferred.promise;
       };
-
       httpRequester.delete = function (url) {
         $http.delete(url)
           .then(function (res) {
@@ -39,7 +37,6 @@
 
         return deferred.promise;
       };
-
       httpRequester.post = function (url, data) {
         $http.post(url, data)
           .then(function (res) {
@@ -50,7 +47,6 @@
 
         return deferred.promise;
       };
-
       httpRequester.put = function (url, data) {
         $http.put(url, data)
           .then(function (res) {

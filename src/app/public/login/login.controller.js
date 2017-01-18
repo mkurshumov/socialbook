@@ -3,38 +3,57 @@
 
   angular
     .module('socialbook')
-    .controller('LoginController', function (authenticationService, $location, $window) {
-      var vm = this;
-
-      vm.mockedCredentials = {
-        username: 'qweqwe',
-        password: 'qweqwe'
-      };
+    .controller('LoginController', function (authenticationService, $location, $window, httpRequester, CONSTANTS, webStoragesService) {
+      var vm = this,
+        loginEndpoint = CONSTANTS.BASE + CONSTANTS.LOGIN;
 
       vm.credentials = {
         username: vm.username,
         password: vm.password,
-        remember: vm.remember
+        remember: vm.remember || false
       };
 
       vm.login = function () {
-        console.log(vm.user);
-        if (vm.mockedCredentials.username == vm.credentials.username
-          && vm.mockedCredentials.password == vm.credentials.password) {
+        var data = {
+          username: vm.credentials.username,
+          password: vm.credentials.password
+        };
+        var rememberMe = vm.credentials.remember;
 
-          if (vm.credentials.remember == true) {
-            authenticationService.setLocalStorage(vm.credentials.username);
-          } else {
-            authenticationService.setSessionStorage(vm.credentials.username);
-          }
+        httpRequester.post(loginEndpoint, data)
+          .then(function (res) {
+            console.log(res.data);
+            processLogin(rememberMe, res.data);
+          }, function (err) {
+            console.log(err);
+          });
+      };
 
-          console.log('Successful login');
-
-          $window.location.href = '/dashboard';
+      function processLogin(rememberMe, data) {
+        if (rememberMe) {
+          handleWebStorage('webStorage', data);
         } else {
-          console.log('Wrong credentials');
+          handleWebStorage('sessionStorage', data);
         }
       }
+
+      function handleWebStorage(webStorage, data) {
+        if (webStorage == 'sessionStorage') {
+          for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+              webStoragesService.setSessionStorage(key, data[key]);
+            }
+          }
+        } else if (webStorage == 'localStorage') {
+          for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+              webStoragesService.setLocalStorage(key, data[key]);
+            }
+          }
+        }
+        $window.location.href = '/dashboard';
+      }
+
     });
 
 })();

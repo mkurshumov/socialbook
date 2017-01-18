@@ -11,6 +11,17 @@
 
       $mdThemingProvider.alwaysWatchTheme(true)
     })
+    .config(function ($httpProvider) {
+      $httpProvider.interceptors.push('AuthInterceptor');
+    })
+    .constant({
+      CONSTANTS: {
+        BASE: 'http://77.70.58.169:8080/',
+        LOGIN: 'api/users/login',
+        LOGOUT: 'api/users/logout',
+        ME: 'api/me'
+      }
+    })
     .directive('compareTo', compareTo);
 
   function compareTo() {
