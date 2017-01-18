@@ -22,7 +22,6 @@
 
         httpRequester.post(loginEndpoint, data)
           .then(function (res) {
-            console.log(res.data);
             processLogin(rememberMe, res.data);
           }, function (err) {
             console.log(err);
