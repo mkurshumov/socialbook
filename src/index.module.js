@@ -19,6 +19,7 @@
         BASE: 'http://77.70.58.169:8080/',
         LOGIN: 'api/users/login',
         LOGOUT: 'api/users/logout',
+        REGISTER: 'api/users/register',
         ME: 'api/me'
       }
     })

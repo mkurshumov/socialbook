@@ -37,7 +37,7 @@
         <div class="margin-top10">
           <md-button class="md-raised md-primary full-width no-margin"
                      ng-click="login.login()"
-                     ng-disabled="loginForm.$invalid">Login</md-button>
+                     ng-disabled="loginForm.$invalid || login.isLoginClicked">Login</md-button>
         </div>
 
         <div class="txt-center margin-top10 md-subhead">

@@ -76,7 +76,9 @@
         </div>
 
         <div class="margin-top10">
-          <md-button class="md-raised md-primary full-width no-margin" ng-disabled="registerForm.$invalid">Register</md-button>
+          <md-button class="md-raised md-primary full-width no-margin"
+                     ng-click="register.register()"
+                     ng-disabled="registerForm.$invalid || register.isRegClicked">Register</md-button>
         </div>
 
         <div class="txt-center margin-top10 md-subhead">

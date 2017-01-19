@@ -13,7 +13,10 @@
         remember: vm.remember || false
       };
 
+      vm.isLoginClicked = false;
       vm.login = function () {
+        vm.isLoginClicked = true;
+
         var data = {
           username: vm.credentials.username,
           password: vm.credentials.password
@@ -23,36 +26,20 @@
         httpRequester.post(loginEndpoint, data)
           .then(function (res) {
             processLogin(rememberMe, res.data);
+            vm.isLoginClicked = false;
           }, function (err) {
             console.log(err);
+            vm.isLoginClicked = false;
           });
       };
 
       function processLogin(rememberMe, data) {
         if (rememberMe) {
-          handleWebStorage('localStorage', data);
+          webStoragesService.handleWebStorage('localStorage', data);
         } else {
-          handleWebStorage('sessionStorage', data);
+          webStoragesService.handleWebStorage('sessionStorage', data);
         }
       }
-
-      function handleWebStorage(webStorage, data) {
-        if (webStorage == 'sessionStorage') {
-          for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-              webStoragesService.setSessionStorage(key, data[key]);
-            }
-          }
-        } else if (webStorage == 'localStorage') {
-          for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-              webStoragesService.setLocalStorage(key, data[key]);
-            }
-          }
-        }
-        $window.location.href = '/dashboard';
-      }
-
     });
 
 })();
