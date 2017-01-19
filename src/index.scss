@@ -39,10 +39,10 @@ $sec-color40: #E65100;
     text-decoration: none;
   }
 }
-.flex {
-  display: flex;
-  flex: 1;
-}
+//.flex {
+//  display: flex;
+//  flex: 1;
+//}
 
 //overrides
 .md-input-container {
@@ -58,6 +58,9 @@ md-autocomplete {
 }
 .material-icons {
   font-size: 26px;
+}
+md-content {
+  background-color: transparent;
 }
 
 //text properties
@@ -243,21 +246,26 @@ md-autocomplete {
 .login-container, .register-container {
   border-radius: 60px;
   margin: auto;
-  padding: 30px;
+  padding: 10px 30px 30px 30px;
   //width: 500px;
   background: rgba(white, 0.7);
 }
 .login-container {
-  height: 520px;
+  //height: 520px;
+  min-width: 435px;
 }
 .register-container {
-  height: 610px;
+  //height: 610px;
+  //min-width: 650px;
 }
 .inner-login-container, .inner-register-container {
   margin-top: 50px;
 }
 .login-inner-text {
   color: $sec-color;
+}
+.password-container {
+  display: flex;
 }
 
 //Phone

@@ -1,43 +1,57 @@
-<div class="login-container md-whiteframe-10dp">
+<div layout="column" ng-cloak class="md-whiteframe-10dp login-container">
+  <md-content layout-padding>
+    <div>
+      <h1 class="md-headline txt-center">Login</h1>
 
-  <h1 class="txt-main-color txt-center">Login</h1>
+      <form name="loginForm">
 
-  <div class="inner-login-container">
-    <form name="loginForm">
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">account_circle</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="username">Username</label>
-          <input id="username" type="text" required
-                 ng-model="login.credentials.username">
+        <md-input-container class="md-block">
+          <label>Username</label>
+          <input required name="username" ng-model="login.credentials.username"
+                 minlength="3" maxlength="100">
+
+          <div ng-messages="loginForm.username.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your username <b>must</b> be between 3 and 100 characters long.
+            </div>
+          </div>
         </md-input-container>
-      </div>
 
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">lock</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="password">Password</label>
-          <input id="password" type="password" required
-                 ng-model="login.credentials.password">
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input required type="password" name="password" ng-model="login.credentials.password"
+                 minlength="6">
+
+          <div ng-messages="loginForm.password.$error" role="alert">
+            <div ng-message-exp="['minlength']">
+              Your password can <b>not</b> be less than 6 characters.
+            </div>
+          </div>
         </md-input-container>
-      </div>
 
-      <md-button class="md-primary float-left margin-left40" ui-sref="public.forgot-password">Forgot Password?</md-button>
+        <md-button class="md-primary" ui-sref="public.forgot-password">Forgot Password?</md-button>
 
-      <md-checkbox class="md-primary txt-grey-color float-right margin-top13 margin-right8"
-                   ng-model="login.credentials.remember">Remember Me</md-checkbox>
+        <md-checkbox class="md-primary txt-grey-color float-right margin-top13"
+                     ng-model="login.credentials.remember">Remember Me</md-checkbox>
 
-      <div class="clearfix"></div>
+        <div class="margin-top10">
+          <md-button class="md-raised md-primary full-width no-margin"
+                     ng-click="login.login()"
+                     ng-disabled="loginForm.$invalid">Login</md-button>
+        </div>
 
-      <md-button class="md-raised md-primary full-width margin-top40 no-margin"
-                 ng-disabled="loginForm.$invalid" ng-click="login.login()">LOGIN</md-button>
-    </form>
+        <div class="txt-center margin-top10 md-subhead">
+          or
+        </div>
 
-    <div class="txt-center margin-top10">
-      or
+        <div>
+          <md-button class="md-primary center margin-top10 no-margin" ui-sref="public.register">Register</md-button>
+        </div>
+
+      </form>
     </div>
-
-    <md-button class="md-primary center margin-top10 no-margin" ui-sref="public.register">Register</md-button>
-  </div>
-
+  </md-content>
 </div>
+
+
+

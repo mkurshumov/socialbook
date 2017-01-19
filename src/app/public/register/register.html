@@ -1,79 +1,93 @@
-<div class="register-container md-whiteframe-10dp">
+<div layout="column" ng-cloak class="md-whiteframe-10dp register-container">
+  <md-content layout-padding>
+    <div>
+      <h1 class="md-headline txt-center">Register</h1>
 
-  <h1 class="txt-main-color txt-center">Register</h1>
+      <form name="registerForm">
 
-  <div class="inner-register-container">
-    <form name="registerForm">
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input required name="name" ng-model="register.newUser.name"
+                 minlength="3" maxlength="100" ng-pattern="/^[a-zA-Z]+$/" />
 
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">account_circle</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="username">Username</label>
-          <input id="username" name="username" ng-model="user.name" type="text" required
-                 ng-maxlength="8" ng-minlength="3">
+          <div ng-messages="registerForm.name.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your name <b>must</b> be between 3 and 100 characters long.
+            </div>
+
+            <div ng-message-exp="['pattern']">
+              Your name can contain letters <b>only</b>.
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Username</label>
+          <input required name="username" ng-model="register.newUser.username"
+                 minlength="3" maxlength="100">
 
           <div ng-messages="registerForm.username.$error" role="alert">
-            <div ng-message="maxlength">
-              Username cannot be more than 8 characters.
-            </div>
-            <div ng-message="minlength">
-              Username cannot be less than 3 characters.
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your username <b>must</b> be between 3 and 100 characters long.
             </div>
           </div>
         </md-input-container>
-      </div>
 
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">email</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="email">Email</label>
-          <input id="email" required type="email" name="email" ng-model="project.email"
-                 minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+        <md-input-container class="md-block">
+          <label>Email</label>
+          <input required type="email" name="email" ng-model="register.newUser.email"
+                 minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
 
           <div ng-messages="registerForm.email.$error" role="alert">
-            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-              Your email must be between 10 and 100 characters long and look like an e-mail address.
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your email <b>must</b> be between 10 and 100 characters long.
+            </div>
+
+            <div ng-message-exp="['pattern']">
+              Your email <b>must</b> look like an e-mail address (example@mail.com).
             </div>
           </div>
         </md-input-container>
-      </div>
 
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">lock</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="password">Password</label>
-          <input id="password" name="password1" ng-model="register.user.password1" type="password" required>
-        </md-input-container>
-      </div>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Password</label>
+            <input required type="password" name="password" ng-model="register.newUser.password"
+                   minlength="6">
 
-      <div class="full-width flex">
-        <i class="material-icons margin-top25 margin-right15 txt-main-color">lock</i>
-        <md-input-container class="md-icon-float full-width">
-          <label for="confPass">Confirm Password</label>
-          <input id="confPass" name="password2"
-                 ng-model="register.user.password2" type="password" required
-                 compare-to="register.user.password1">
-
-          <div ng-messages="registerForm.password2.$error" role="alert">
-            <div ng-message="compareTo">
-              Confirm Password must match Password.
+            <div ng-messages="registerForm.password.$error" role="alert">
+              <div ng-message-exp="['minlength']">
+                Your password can <b>not</b> be less <br> than 6 characters.
+              </div>
             </div>
-          </div>
-        </md-input-container>
-      </div>
+          </md-input-container>
 
-      <div class="clearfix"></div>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Confirm Password</label>
+            <input required type="password" name="confirmPass" ng-model="register.newUser.confirmPassword"
+                   compare-to="register.newUser.password">
 
-      <md-button class="md-raised md-primary full-width no-margin" ng-disabled="registerForm.$invalid">Register</md-button>
+            <div ng-messages="registerForm.confirmPass.$error" role="alert">
+              <div ng-message="compareTo">
+                Confirm password <b>must</b> <br> match Password.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
 
-    </form>
+        <div class="margin-top10">
+          <md-button class="md-raised md-primary full-width no-margin" ng-disabled="registerForm.$invalid">Register</md-button>
+        </div>
 
-    <div class="txt-center margin-top10">
-      or
+        <div class="txt-center margin-top10 md-subhead">
+          or
+        </div>
+
+        <div>
+          <md-button class="md-primary center margin-top10 no-margin" ui-sref="public.login">Login</md-button>
+        </div>
+
+      </form>
     </div>
-
-    <md-button class="md-primary center margin-top10 no-margin" ui-sref="public.login">Login</md-button>
-
-  </div>
-
+  </md-content>
 </div>

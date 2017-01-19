@@ -30,7 +30,7 @@
 
       function processLogin(rememberMe, data) {
         if (rememberMe) {
-          handleWebStorage('webStorage', data);
+          handleWebStorage('localStorage', data);
         } else {
           handleWebStorage('sessionStorage', data);
         }
