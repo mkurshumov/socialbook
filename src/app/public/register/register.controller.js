@@ -23,7 +23,7 @@
         if (vm.newUser.password == vm.newUser.confirmPassword) {
           httpRequester.post(registerEndpoint, vm.newUser)
             .then(function (res) {
-              webStoragesService.handleWebStorage('localStorage', res.data);
+              webStoragesService.handleWebStorage('localStorage', res.data, true, 'dashboard');
               vm.isRegClicked = false;
             }, function (err) {
               console.log(err);

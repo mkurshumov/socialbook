@@ -29,7 +29,7 @@
         $window.sessionStorage.clear();
       };
 
-      webStoragesService.handleWebStorage = function (webStorage, data) {
+      webStoragesService.handleWebStorage = function (webStorage, data, redirect, redirectTo) {
         if (webStorage == 'sessionStorage') {
           for (var key in data) {
             if (data.hasOwnProperty(key)) {
@@ -43,7 +43,12 @@
             }
           }
         }
-        $window.location.href = '/dashboard';
+
+        redirectTo = redirectTo || '';
+
+        if (redirect) {
+          $window.location.href = '/' + redirectTo;
+        }
       };
 
       return webStoragesService;

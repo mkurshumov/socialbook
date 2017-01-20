@@ -3,14 +3,14 @@
 
   angular
     .module('socialbook')
-    .controller('PrivateController', function (CONSTANTS, authenticationService, $window, httpRequester, webStoragesService) {
+    .controller('PrivateController', function (CONSTANTS, authenticationService, $window, httpRequester, webStoragesService, $timeout, $mdSidenav) {
       var vm = this,
         logoutEndpoint = CONSTANTS.BASE + CONSTANTS.LOGOUT,
         meEndpoint = CONSTANTS.BASE + CONSTANTS.ME;
 
-      vm.currentUser = webStoragesService.getItemFromStorages('userName');
-
+      vm.isLogoutClicked = false;
       vm.logout = function () {
+        vm.isLogoutClicked = true;
         httpRequester.post(logoutEndpoint, {})
           .then(function (res) {
             webStoragesService.clearWebStorages();
@@ -30,14 +30,39 @@
 
           });
       };
+
       vm.getMe = function () {
-        httpRequester.get(meEndpoint)
-          .then(function (res) {
-            console.log(res);
-          }, function (err) {
-            console.log(err);
-          });
+        if (!webStoragesService.getItemFromStorages('profileImageData')) {
+          httpRequester.get(meEndpoint)
+            .then(function (res) {
+              webStoragesService.handleWebStorage('localStorage', res.data, false);
+              vm.currentUser = res.data;
+            }, function (err) {
+              if (err.status == 401) {
+                vm.logout();
+              }
+            });
+        } else {
+          vm.currentUser = {
+            coverImageData: webStoragesService.getItemFromStorages('coverImageData'),
+            email: webStoragesService.getItemFromStorages('gender'),
+            id: webStoragesService.getItemFromStorages('id'),
+            name: webStoragesService.getItemFromStorages('name'),
+            profileImageData: webStoragesService.getItemFromStorages('profileImageData'),
+            username: webStoragesService.getItemFromStorages('username')
+          }
+        }
+      };
+
+      vm.getMe();
+
+      vm.toggleLeft = buildToggler('left');
+      function buildToggler(componentId) {
+        return function() {
+          $mdSidenav(componentId).toggle();
+        }
       }
+
     });
 
 })();

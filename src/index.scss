@@ -162,12 +162,18 @@ md-content {
   z-index: 999;
   position: fixed;
   width: 100%;
-  padding: 10px 0 10px 0;
+  //padding: 10px 0 10px 0;
   background: $main-color30; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient($main-color30, $main-color40); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient($main-color30, $main-color40); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient($main-color30, $main-color40); /* For Firefox 3.6 to 15 */
   background: linear-gradient($main-color30, $main-color40); /* Standard syntax */
+}
+
+.logo-nav {
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .search-bar {
@@ -180,11 +186,11 @@ md-content {
 }
 
 .profile-block {
-  padding: 3px;
+  padding: 0 3px 0 3px;
+  height: 35px;
+
   &:hover {
-    //background-color: rgba(0, 0, 0, 0.2);
     background-color: rgba($main-color, 0.2);
-    //background-color: darken($main-color, );
     border-radius: 5px;
     cursor: pointer;
   }
@@ -239,6 +245,14 @@ md-content {
 .nav-tools {
   //margin-right: 400px;
   margin-right: 20%;
+}
+
+.md-icon-btn-fix {
+  margin: 0!important;
+  padding: 0!important;
+  &:hover {
+    color: black;
+  }
 }
 
 
