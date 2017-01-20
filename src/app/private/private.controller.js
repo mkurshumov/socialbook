@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   angular
@@ -32,33 +32,22 @@
       };
 
       vm.getMe = function () {
-        if (!webStoragesService.getItemFromStorages('profileImageData')) {
-          httpRequester.get(meEndpoint)
-            .then(function (res) {
-              webStoragesService.handleWebStorage('localStorage', res.data, false);
-              vm.currentUser = res.data;
-            }, function (err) {
-              if (err.status == 401) {
-                vm.logout();
-              }
-            });
-        } else {
-          vm.currentUser = {
-            coverImageData: webStoragesService.getItemFromStorages('coverImageData'),
-            email: webStoragesService.getItemFromStorages('gender'),
-            id: webStoragesService.getItemFromStorages('id'),
-            name: webStoragesService.getItemFromStorages('name'),
-            profileImageData: webStoragesService.getItemFromStorages('profileImageData'),
-            username: webStoragesService.getItemFromStorages('username')
-          }
-        }
+        httpRequester.get(meEndpoint)
+          .then(function (res) {
+            console.log(res.data);
+            vm.currentUser = res.data;
+          }, function (err) {
+            if (err.status == 401) {
+              vm.logout();
+            }
+          });
       };
 
       vm.getMe();
 
       vm.toggleLeft = buildToggler('left');
       function buildToggler(componentId) {
-        return function() {
+        return function () {
           $mdSidenav(componentId).toggle();
         }
       }

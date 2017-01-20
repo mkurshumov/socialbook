@@ -37,8 +37,8 @@
 
       <div layout="row" layout-align="center center">
         <div class="profile-block" layout="row" layout-align="center center">
-          <img ng-src="{{private.currentUser.profileImageData}}" alt="pic"
-               style="width: 30px;height: 30px;border-radius:5px" class="margin-right8"/>
+          <img ng-src="data:image/png;base64,{{private.currentUser.profileImageData}}" alt="pic"
+               style="width: 20px;height: 20px;border-radius:5px" class="margin-right8"/>
           <p class="md-title">{{private.currentUser.name}}</p>
         </div>
 
