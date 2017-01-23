@@ -1,0 +1,67 @@
+<md-card ng-if="settings.dataLoaded">
+  <md-card-title>
+    <md-card-title-media>
+      <div class="md-media-lg card-media margin-right15" style="border: 1px solid ghostwhite">
+        <img ng-src="data:image/png;base64,{{settings.currentUser.profileImageData}}" alt="pic"/>
+      </div>
+    </md-card-title-media>
+    <md-card-title-text>
+      <form name="editProfileForm" class="md-headline">
+        <md-input-container class="md-block">
+          <label>Name</label>
+          <input required name="name" ng-model="settings.currentUser.name"
+                 minlength="3" maxlength="100" ng-pattern="/^[a-zA-Z]+$/"/>
+
+          <div ng-messages="editProfileForm.name.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your name <b>must</b> be between 3 and 100 characters long.
+            </div>
+
+            <div ng-message-exp="['pattern']">
+              Your name can contain letters <b>only</b>.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block margin-top25">
+          <label>Email</label>
+          <input required type="email" name="email" ng-model="settings.currentUser.email"
+                 minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+
+          <div ng-messages="editProfileForm.email.$error" role="alert">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Your email <b>must</b> be between 10 and 100 characters long.
+            </div>
+
+            <div ng-message-exp="['pattern']">
+              Your email <b>must</b> look like an e-mail address (example@mail.com).
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block margin-top25">
+          <label>Gender</label>
+          <md-select ng-model="settings.currentUser.gender" required>
+            <md-option ng-value="2">
+              Male
+            </md-option>
+            <md-option ng-value="1">
+              Female
+            </md-option>
+            <md-option ng-value="0">
+              Other
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </form>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button class="md-raised md-primary txt-white-color"
+               ng-disabled="editProfileForm.$invalid || settings.editBtnClicked"
+               ng-click="settings.editProfile();">Save</md-button>
+  </md-card-actions>
+</md-card>
+
+<div layout="row" layout-sm="column" layout-align="space-around" ng-if="!settings.dataLoaded">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+

@@ -121,6 +121,11 @@ md-content {
   margin-left: 40px;
 }
 
+//borders
+.border-radius {
+  border-radius: 5px;
+}
+
 //floats
 .float-right {
   float: right;
@@ -151,11 +156,16 @@ md-content {
   //border: 1px solid black;
 }
 
+.private-inner {
+  padding: 20px 0 20px 0;
+}
 
 //dashboard
 .dashboard-container {
-  padding: 53px 20% 0 20%;
-  //border: 1px solid black;
+  padding: 20px 0 20px 0;
+}
+.dashboard-inner {
+
 }
 
 .navbar {

@@ -66,7 +66,20 @@
         controller: 'DashboardController',
         controllerAs: 'dashboard',
         templateUrl: 'app/private/dashboard/dashboard.html'
+      })
+      .state('private.editProfile', {
+        url: '/settings/edit-profile',
+        controller: 'SettingsController',
+        controllerAs: 'settings',
+        templateUrl: 'app/private/settings/edit-profile.html'
+      })
+      .state('private.changePass', {
+        url: '/settings/change-password',
+        controller: 'SettingsController',
+        controllerAs: 'settings',
+        templateUrl: 'app/private/settings/change-password.html'
       });
+
   }
 
 })();

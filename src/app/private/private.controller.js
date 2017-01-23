@@ -34,8 +34,9 @@
       vm.getMe = function () {
         httpRequester.get(meEndpoint)
           .then(function (res) {
-            console.log(res.data);
-            vm.currentUser = res.data;
+            webStoragesService.handleWebStorage('localStorage', res.data, false);
+            vm.currentUsername = webStoragesService.getItemFromStorages('userName');
+            vm.profileImageData = webStoragesService.getItemFromStorages('profileImageData');
           }, function (err) {
             if (err.status == 401) {
               vm.logout();
@@ -51,6 +52,17 @@
           $mdSidenav(componentId).toggle();
         }
       }
+
+      if (webStoragesService.getItemFromStorages('muteNotifications')) {
+        vm.muteNotifications = webStoragesService.getItemFromStorages('muteNotifications');
+      } else {
+        vm.muteNotifications = false;
+      }
+
+      vm.handleNotifications = function () {
+        vm.muteNotifications = !vm.muteNotifications;
+        webStoragesService.setLocalStorage('muteNotifications', vm.muteNotifications);
+      };
 
     });
 

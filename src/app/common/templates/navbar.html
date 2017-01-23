@@ -8,21 +8,22 @@
 
     <div flex-gt-sm="70" flex-sm="100" flex-xs="100" layout="row" layout-align="space-between center">
       <div layout="row" flex="90">
-        <img src="../../../assets/logo.png" alt="logo" hide-sm hide-gt-xs hide-xs show-gt-sm class="margin-right15 logo-nav" ui-sref="private.dashboard"/>
+        <img src="../../../assets/logo.png" alt="logo" hide-sm hide-gt-xs hide-xs show-gt-sm
+             class="margin-right15 logo-nav" ui-sref="private.dashboard"/>
 
         <div flex="90">
           <form ng-submit="$event.preventDefault()" flex="90">
             <md-autocomplete flex="70"
-              ng-disabled="ctrl.isDisabled"
-              md-no-cache="ctrl.noCache"
-              md-selected-item="ctrl.selectedItem"
-              md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-              md-search-text="ctrl.searchText"
-              md-selected-item-change="ctrl.selectedItemChange(item)"
-              md-items="item in ctrl.querySearch(ctrl.searchText)"
-              md-item-text="item.display"
-              md-min-length="0"
-              placeholder="Search">
+                             ng-disabled="ctrl.isDisabled"
+                             md-no-cache="ctrl.noCache"
+                             md-selected-item="ctrl.selectedItem"
+                             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                             md-search-text="ctrl.searchText"
+                             md-selected-item-change="ctrl.selectedItemChange(item)"
+                             md-items="item in ctrl.querySearch(ctrl.searchText)"
+                             md-item-text="item.display"
+                             md-min-length="0"
+                             placeholder="Search">
               <md-item-template>
                 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
               </md-item-template>
@@ -37,9 +38,9 @@
 
       <div layout="row" layout-align="center center">
         <div class="profile-block" layout="row" layout-align="center center">
-          <img ng-src="data:image/png;base64,{{private.currentUser.profileImageData}}" alt="pic"
+          <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="pic"
                style="width: 20px;height: 20px;border-radius:5px" class="margin-right8"/>
-          <p class="md-title">{{private.currentUser.name}}</p>
+          <p class="md-title">{{private.currentUsername}}</p>
         </div>
 
         <span class="txt-white-color" layout-margin hide-sm hide-gt-xs hide-xs show-gt-sm>|</span>
@@ -47,24 +48,42 @@
         <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm>
           <i class="material-icons va-mid">people</i>
           <!--<md-tooltip md-direction="bottom">-->
-            <!--Friend Requests-->
+          <!--Friend Requests-->
           <!--</md-tooltip>-->
         </md-button>
-        <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm>
-          <i class="material-icons va-mid">notifications</i>
+        <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm
+                   ng-dblclick="private.handleNotifications()">
+          <i class="material-icons va-mid" ng-if="!private.muteNotifications">notifications</i>
+          <i class="material-icons va-mid" ng-if="private.muteNotifications">notifications_off</i>
           <!--<md-tooltip md-direction="bottom">-->
-            <!--Notifications-->
+          <!--Notifications-->
           <!--</md-tooltip>-->
         </md-button>
 
         <span class="txt-white-color" layout-margin hide-sm hide-gt-xs hide-xs show-gt-sm>|</span>
 
-        <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm>
-          <i class="material-icons va-mid">settings</i>
-          <!--<md-tooltip md-direction="bottom">-->
-          <!--Notifications-->
-          <!--</md-tooltip>-->
-        </md-button>
+        <md-menu md-position-mode="target-left bottom">
+          <md-button class="md-icon-button md-icon-btn-fix"
+                     hide-sm hide-gt-xs hide-xs show-gt-sm
+                     ng-click="$mdOpenMenu($event)">
+            <i class="material-icons va-mid">settings</i>
+            <!--<md-tooltip md-direction="bottom">-->
+            <!--Notifications-->
+            <!--</md-tooltip>-->
+          </md-button>
+          <md-menu-content width="3">
+            <md-menu-item>
+              <md-button ui-sref="private.editProfile">
+                <span md-menu-align-target>Edit Profile</span>
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ui-sref="private.changePass">
+                <span md-menu-align-target>Change Password</span>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
 
         <md-button class="md-icon-button md-icon-btn-fix" ng-disabled="private.isLogoutClicked"
                    ng-click="private.logout()" hide-sm hide-gt-xs hide-xs show-gt-sm>
@@ -100,26 +119,40 @@
 
     <md-content layout="column">
       <div layout-margin layout="column">
-        <md-button class="md-raised md-primary md-hue-2" flex="100">
+        <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.changePasssss">
           <i class="material-icons va-mid" layout-margin>people</i>
-          <span>Friend Requests</span>
-        </md-button>
+          <p> Friend Requests </p>
+        </md-list-item>
 
-        <md-button class="md-raised md-primary md-hue-2" flex="100">
-          <i class="material-icons va-mid" layout-margin>notifications</i>
-          <span>Notifications</span>
-        </md-button>
+        <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.changePasssss">
+          <i class="material-icons va-mid" layout-margin ng-if="private.muteNotifications">notifications</i>
+          <i class="material-icons va-mid" layout-margin ng-if="!private.muteNotifications">notifications_off</i>
+          <p> Notifications </p>
+          <md-switch class="md-secondary" ng-model="private.muteNotifications"></md-switch>
+        </md-list-item>
       </div>
 
-      <md-divider ng-if="!$last"></md-divider>
+      <md-divider></md-divider>
 
       <div layout-margin layout="column">
-        <md-button class="md-raised md-primary md-hue-2" flex="100">
+        <md-list-item class="md-raised md-primary md-hue-2" ng-click="private.expandedSettings = !private.expandedSettings">
           <i class="material-icons va-mid" layout-margin>settings</i>
-          <span>Settings</span>
-        </md-button>
+          <p> Settings </p>
+          <i class="material-icons" ng-if="!private.expandedSettings">keyboard_arrow_down</i>
+          <i class="material-icons" ng-if="private.expandedSettings">keyboard_arrow_up</i>
+        </md-list-item>
 
-        <md-button class="md-raised md-accent" flex="100" ng-click="private.logout()">
+        <div ng-if="private.expandedSettings" layout-align="end center">
+          <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.editProfile" layout-margin ng-click="private.toggleLeft()">
+            <p> Edit Profile </p>
+          </md-list-item>
+          <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.changePass" layout-margin ng-click="private.toggleLeft()">
+            <p> Change Password </p>
+          </md-list-item>
+        </div>
+
+
+        <md-button class="md-raised md-accent" layout-margin ng-click="private.logout()">
           <i class="material-icons va-mid" layout-margin>exit_to_app</i>
           <span>Logout</span>
         </md-button>
