@@ -20,7 +20,8 @@
         LOGIN: 'api/users/login',
         LOGOUT: 'api/users/logout',
         REGISTER: 'api/users/register',
-        ME: 'api/me'
+        ME: 'api/me',
+        CHANGE_PASS: '/changePassword'
       }
     })
     .directive('compareTo', compareTo);
