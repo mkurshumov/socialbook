@@ -22,7 +22,8 @@
         REGISTER: 'api/users/register',
         ME: 'api/me',
         CHANGE_PASS: '/changePassword',
-        POSTS: 'api/posts'
+        POSTS: 'api/posts',
+        SEARCH: 'api/users/search?searchTerm='
       }
     })
     .directive('compareTo', compareTo);
