@@ -36,12 +36,21 @@
       httpRequester.post = function (url, data) {
         var deferred = $q.defer();
 
-        $http.post(url, data)
-          .then(function (res) {
-            deferred.resolve(res)
-          }, function (err) {
-            deferred.reject(err);
-          });
+        if (data) {
+          $http.post(url, data)
+            .then(function (res) {
+              deferred.resolve(res)
+            }, function (err) {
+              deferred.reject(err);
+            });
+        } else {
+          $http.post(url)
+            .then(function (res) {
+              deferred.resolve(res)
+            }, function (err) {
+              deferred.reject(err);
+            });
+        }
 
         return deferred.promise;
       };

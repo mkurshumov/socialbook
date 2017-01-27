@@ -7,7 +7,8 @@
       var vm = this,
         logoutEndpoint = CONSTANTS.BASE + CONSTANTS.LOGOUT,
         meEndpoint = CONSTANTS.BASE + CONSTANTS.ME,
-        searchEndpoint = CONSTANTS.BASE + CONSTANTS.SEARCH;
+        searchEndpoint = CONSTANTS.BASE + CONSTANTS.SEARCH,
+        userPreviewEndpoint = CONSTANTS.BASE + CONSTANTS.USERS;
 
       vm.isLogoutClicked = false;
       vm.logout = function () {
@@ -36,6 +37,7 @@
       vm.getMe = function () {
         httpRequester.get(meEndpoint)
           .then(function (res) {
+            console.log(res.data);
             webStoragesService.handleWebStorage('localStorage', res.data, false);
             vm.currentUsername = webStoragesService.getItemFromStorages('userName');
             vm.profileImageData = webStoragesService.getItemFromStorages('profileImageData');
@@ -69,7 +71,7 @@
 
       vm.searchTerm = '';
       vm.results = [];
-
+      //md-autocomplete wants promise
       vm.search = function (searchTerm) {
         return $http.get(searchEndpoint + searchTerm)
           .then(function (response) {
@@ -83,6 +85,36 @@
             // something went wrong
             return $q.reject(response.data);
           });
+      };
+
+      var timer;
+
+      vm.previewLoaded = false;
+      vm.getUserPreview = function (username) {
+        vm.previewLoaded = false;
+
+        //timeout to avoid sending requests on every hover
+        //send request if the user hovers 1 second
+        timer = $timeout(function () {
+          httpRequester.get(userPreviewEndpoint + username + CONSTANTS.PREVIEW)
+            .then(function (res) {
+              console.log(res.data);
+              vm.previewData = res.data;
+              if (res.data.gender == 1) {
+                vm.previewData.gender = 'Female';
+              } else if (res.data.gender == 2) {
+                vm.previewData.gender = 'Male';
+              } else {
+                vm.previewData.gender = 'Other';
+              }
+              vm.previewLoaded = true;
+            }, function (err) {
+
+            });
+        }, 1000);
+      };
+      vm.cancelTimer = function () {
+        $timeout.cancel(timer);
       };
 
     });

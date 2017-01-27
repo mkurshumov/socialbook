@@ -23,7 +23,12 @@
         ME: 'api/me',
         CHANGE_PASS: '/changePassword',
         POSTS: 'api/posts',
-        SEARCH: 'api/users/search?searchTerm='
+        SEARCH: 'api/users/search?searchTerm=',
+        USERS: 'api/users/',
+        PREVIEW: '/preview',
+        REQUESTS: '/requests/',
+        FEED_START_POST: '/feed?StartPostId=',
+        FEED_PAGE_SIZE: '&PageSize=3'
       }
     })
     .directive('compareTo', compareTo);

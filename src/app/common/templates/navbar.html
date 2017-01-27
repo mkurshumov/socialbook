@@ -14,19 +14,21 @@
         <div flex-xs="90" flex-sm="50" flex-md="70" flex-lg="50">
           <form ng-submit="$event.preventDefault()">
             <md-autocomplete
-                            md-selected-item="private.selectedItem"
-                            md-search-text="private.searchTerm"
-                            md-items="item in private.search(private.searchTerm)"
-                            md-item-text="item.name"
-                            md-min-length="1"
-                            placeholder="Search"
-                            md-menu-class="autocomplete-custom-template">
+              md-selected-item="private.selectedItem"
+              md-search-text="private.searchTerm"
+              md-items="item in private.search(private.searchTerm)"
+              md-item-text="item.name"
+              md-min-length="1"
+              placeholder="Search"
+              md-menu-class="autocomplete-custom-template">
               <md-item-template>
-                <span class="item-title">
-                  <img ng-src="data:image/png;base64,{{item.profileImageData}}" alt="pic"
-                       style="width: 25px;height: 25px;" class="margin-right8 va-mid"/>
+                <div ui-sref="private.profile({username: item.username})">
+                  <span class="item-title">
+                  <img ng-src="data:image/png;base64,{{item.profileImageData}}" alt="profile pic" class="margin-right8 va-mid wh25" ng-if="item.profileImageData"/>
+                  <img src="../../../assets/default-profile-picture.png" alt="profile pic" class="margin-right8 va-mid wh25" ng-if="!item.profileImageData"/>
                 </span>
-                <span md-highlight-text="private.searchTerm" md-highlight-flags="^i">{{item.name}}</span>
+                  <span md-highlight-text="private.searchTerm" md-highlight-flags="^i">{{item.name}}</span>
+                </div>
               </md-item-template>
               <md-not-found>
                 No users found.
@@ -38,9 +40,10 @@
 
       <div layout="row" layout-align="center center">
         <div class="profile-block" layout="row" layout-align="center center">
-          <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="pic"
-               style="width: 20px;height: 20px;border-radius:5px" class="margin-right8"/>
-          <p class="md-title">{{private.currentUsername}}</p>
+          <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="pic" class="margin-right8 wh20r5" ng-if="private.profileImageData != 'null'"/>
+          <img src="../../../assets/default-profile-picture.png" alt="profile pic" class="margin-right8 va-mid wh20r5" ng-if="private.profileImageData == 'null'"/>
+
+          <p class="md-title" ui-sref="private.profile({username: private.currentUsername})">{{private.currentUsername}}</p>
         </div>
 
         <span class="txt-white-color" layout-margin hide-sm hide-gt-xs hide-xs show-gt-sm>|</span>
@@ -65,7 +68,7 @@
         <md-menu md-position-mode="target-left bottom">
           <md-button class="md-icon-button md-icon-btn-fix"
                      hide-sm hide-gt-xs hide-xs show-gt-sm
-                     ng-click="$mdOpenMenu($event)">
+                     ng-click="$mdMenu.open($event)">
             <i class="material-icons va-mid">settings</i>
             <!--<md-tooltip md-direction="bottom">-->
             <!--Notifications-->

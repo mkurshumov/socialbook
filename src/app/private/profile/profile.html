@@ -1,0 +1,102 @@
+<div layout="row" layout-sm="column" layout-align="center center" ng-if="!profile.dataLoaded">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<md-card ng-if="profile.dataLoaded">
+  <md-card-header>
+    <md-card-avatar class="wh80">
+      <img class="md-user-avatar" ng-if="profile.userData.profileImageData"
+           ng-src="data:image/png;base64,{{profile.userData.profileImageData}}"/>
+      <img class="md-user-avatar" ng-if="!profile.userData.profileImageData" src="../../../assets/default-profile-picture.png"/>
+    </md-card-avatar>
+    <md-card-header-text>
+      <span class="md-headline">{{profile.userData.name}}</span>
+      <span class="md-title">{{profile.userData.gender}}</span>
+    </md-card-header-text>
+    <div ng-if="profile.userData.username != private.currentUsername">
+      <md-button class="md-raised" ng-disabled="profile.addFriendClicked"
+                 ng-if="profile.userData.isFriend || !profile.userData.hasPendingRequest"
+                 ng-click="profile.addFriend()">
+        <i class="material-icons va-mid">person_add</i>
+        Add Friend
+      </md-button>
+      <md-button class="md-raised" disabled ng-if="profile.userData.hasPendingRequest">
+        <i class="material-icons va-mid">watch_later</i>
+        Pending
+      </md-button>
+      <md-button class="md-raised" disabled ng-if="profile.userData.isFriend">
+        <i class="material-icons va-mid">person</i>
+        Friend
+      </md-button>
+    </div>
+  </md-card-header>
+
+  <img ng-if="profile.userData.coverImageData"
+       ng-src="data:image/png;base64,/{{profile.userData.coverImageData}}" class="md-card-image" alt="Cover Image">
+  <img ng-if="!profile.userData.coverImageData" src="../../../assets/default-cover.jpg" class="md-card-image" alt="Cover Image">
+</md-card>
+
+<div layout="row" layout-sm="column" layout-align="center center" ng-if="!profile.postsLoaded">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<md-card ng-repeat="post in profile.posts" ng-if="profile.postsLoaded">
+  <md-card-title>
+    <md-card-title-media class="margin-right15 pointer-img"
+                         ng-mouseover="private.getUserPreview(post.author.username)"
+                         ng-mouseleave="private.cancelTimer()"
+                         ui-sref="private.profile({username: post.author.username})">
+      <div class="md-media-md card-media wh60">
+        <img ng-src="data:image/png;base64,{{post.author.profileImageData}}" alt="Profile Picture"
+             ng-if="post.author.profileImageData != null"/>
+        <img src="../../../assets/default-profile-picture.png" alt="Profile Picture"
+             ng-if="post.author.profileImageData == null"/>
+      </div>
+      <md-tooltip md-direction="right" layout-padding md-delay="500" class="w300h130">
+        <div layout="row" layout-sm="column" layout-align="center center" class="margin-top10"
+             ng-if="!private.previewLoaded">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+
+        <div ng-if="private.previewLoaded" class="inline-block">
+          <div class="inline-block">
+            <img class="wh80" ng-src="data:image/png;base64,{{private.previewData.profileImageData}}"
+                 alt="Profile Picture" ng-if="private.previewData.profileImageData != null"/>
+            <img class="wh80" src="../../../assets/default-profile-picture.png" alt="Profile Picture"
+                 ng-if="private.previewData.profileImageData == null"/>
+          </div>
+          <div class="inline-block va-top margin-left15">
+            <div class="md-title">{{private.previewData.name}}</div>
+            <span flex></span>
+            <div class="md-subhead">{{private.previewData.gender}}</div>
+          </div>
+        </div>
+        <span style="display: none" class="inline-block">.</span>
+
+      </md-tooltip>
+    </md-card-title-media>
+    <md-card-title-text>
+        <span>
+          <span class="md-title pointer" ui-sref="private.profile({username: post.author.username})">{{post.author.name}}</span>
+        </span>
+      <span class="md-subhead">{{post.date | date:'dd.MM.yyyy HH:mm'}}</span>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <div>{{post.postContent}}</div>
+  </md-card-content>
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button>
+      <i class="material-icons va-mid">thumb_up</i>
+      <span>Like</span>
+    </md-button>
+    <md-button>
+      <i class="material-icons va-mid">comment</i>
+      <span>Comment</span>
+    </md-button>
+  </md-card-actions>
+</md-card>
+
+<div ng-if="profile.posts.length == 0" class="center md-headline" layout-padding>
+  No Posts available.
+</div>

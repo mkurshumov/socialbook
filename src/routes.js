@@ -67,6 +67,20 @@
         controllerAs: 'dashboard',
         templateUrl: 'app/private/dashboard/dashboard.html'
       })
+      .state('private.profile', {
+        url: '/user/:username',
+        controller: 'ProfileController',
+        controllerAs: 'profile',
+        templateUrl: 'app/private/profile/profile.html',
+        resolve: {
+          checkParam: function ($stateParams, $location) {
+            //Check if url parameter is missing.
+            if ($stateParams.username == "") {
+              $location.path('/dashboard');
+            }
+          }
+        }
+      })
       .state('private.editProfile', {
         url: '/settings/edit-profile',
         controller: 'SettingsController',
