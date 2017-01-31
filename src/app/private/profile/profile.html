@@ -15,7 +15,7 @@
     </md-card-header-text>
     <div ng-if="profile.userData.username != private.currentUsername">
       <md-button class="md-raised" ng-disabled="profile.addFriendClicked"
-                 ng-if="profile.userData.isFriend || !profile.userData.hasPendingRequest"
+                 ng-if="!profile.userData.isFriend || profile.userData.hasPendingRequest"
                  ng-click="profile.addFriend()">
         <i class="material-icons va-mid">person_add</i>
         Add Friend
