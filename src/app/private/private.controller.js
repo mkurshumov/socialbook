@@ -3,12 +3,14 @@
 
   angular
     .module('socialbook')
-    .controller('PrivateController', function (CONSTANTS, authenticationService, $window, httpRequester, webStoragesService, $mdSidenav, $timeout, $q, $http) {
+    .controller('PrivateController', function (CONSTANTS, authenticationService, $window, httpRequester, webStoragesService, $mdSidenav, $timeout, $q, $http, $mdDialog) {
       var vm = this,
         logoutEndpoint = CONSTANTS.BASE + CONSTANTS.LOGOUT,
         meEndpoint = CONSTANTS.BASE + CONSTANTS.ME,
         searchEndpoint = CONSTANTS.BASE + CONSTANTS.SEARCH,
-        userPreviewEndpoint = CONSTANTS.BASE + CONSTANTS.USERS;
+        userPreviewEndpoint = CONSTANTS.BASE + CONSTANTS.USERS,
+        friendReqsEndpoint = CONSTANTS.BASE + CONSTANTS.ME + CONSTANTS.REQUESTS,
+        statusEndpoint = CONSTANTS.STATUS;
 
       vm.isLogoutClicked = false;
       vm.logout = function () {
@@ -38,7 +40,7 @@
         httpRequester.get(meEndpoint)
           .then(function (res) {
             console.log(res.data);
-            webStoragesService.handleWebStorage('localStorage', res.data, false);
+            webStoragesService.handleWebStorage('localStorage', res.data);
             vm.currentUsername = webStoragesService.getItemFromStorages('userName');
             vm.profileImageData = webStoragesService.getItemFromStorages('profileImageData');
             vm.dataLoaded = true;
@@ -48,7 +50,6 @@
             }
           });
       };
-
       vm.getMe();
 
       vm.toggleLeft = buildToggler('left');
@@ -116,6 +117,100 @@
       vm.cancelTimer = function () {
         $timeout.cancel(timer);
       };
+
+      function getFriendRequests() {
+        httpRequester.get(friendReqsEndpoint)
+          .then(function (res) {
+            console.log(res.data);
+            vm.friendRequests = res.data;
+            return res.data;
+          }, function (err) {
+            console.log(err);
+          });
+      }
+      getFriendRequests();
+
+      vm.showFriendRequests = function (ev) {
+        $mdDialog.show({
+          controller: DialogController,
+          controllerAs: 'dialog',
+          templateUrl: 'app/common/templates/_friend-requests.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          locals: {
+            items: vm.friendRequests
+          },
+          clickOutsideToClose: true,
+          fullscreen: true // Only for -xs, -sm breakpoints.
+        });
+      };
+
+      function DialogController(locals, $mdDialog) {
+        var dialog = this;
+
+        dialog.items = locals.items;
+
+        dialog.close = function () {
+          dialog.items = getFriendRequests();
+          //close side-navigation
+          vm.toggleLeft();
+          //close dialog
+          $mdDialog.hide();
+        };
+
+        dialog.clickedControls = [];
+        /**
+         * @param reset - (bool)
+         * true - reset clickedControls to default values
+         * false - populate clickedControls
+         */
+        function handleClickedControls(reset) {
+          if (reset) {
+            for (var i = 0; i < dialog.items.length; i++) {
+              dialog.clickedControls[i].accept = false;
+              dialog.clickedControls[i].decline = false;
+            }
+          } else {
+            for (var j = 0; j < dialog.items.length; j++) {
+              dialog.clickedControls[j] = {
+                accept: false,
+                decline: false,
+                approved: false,
+                declined: false
+              };
+            }
+          }
+        }
+        handleClickedControls(false);
+
+        dialog.handleRequest = function (requestId, status, index) {
+          //set which button is clicked based on status
+          if (status == 'approved') {
+            dialog.clickedControls[index].accept = true;
+          } else {
+            dialog.clickedControls[index].decline = true;
+          }
+
+          var url = friendReqsEndpoint + requestId + statusEndpoint + status;
+
+          httpRequester.put(url)
+            .then(function (res) {
+              console.log(res.data);
+              //set status for proper button visualization
+              if (status == 'approved') {
+                dialog.clickedControls[index].approved = true;
+              } else {
+                dialog.clickedControls[index].declined = true;
+              }
+              handleClickedControls(true);
+            }, function (err) {
+              console.log(err);
+              handleClickedControls(true);
+            });
+        };
+
+      }
+
 
     });
 

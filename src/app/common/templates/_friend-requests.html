@@ -1,0 +1,47 @@
+<md-dialog aria-label="Friend Requests List" flex-gt-sm="70" flex-gt-md="50">
+  <md-dialog-content>
+    <md-list>
+      <md-subheader class="md-no-sticky">
+        <span>Friend Requests ({{dialog.items.length}})</span>
+        <i class="material-icons pointer float-right margin-top-5" ng-click="dialog.close()">close</i>
+      </md-subheader>
+
+      <md-list-item ng-repeat="req in dialog.items" class="noright"
+                    ui-sref="private.profile({username: req.user.username})"
+                    ng-click="dialog.close();private.toggleLeft()">
+        <img alt="{{ req.user.name }}" ng-src="data:image/png;base64,{{ req.user.profileImageData }}" class="md-avatar"
+             ng-if="req.user.profileImageData != null"/>
+        <img alt="{{ req.user.name }}" src="../../../assets/default-profile-picture.png" class="md-avatar"
+             ng-if="req.user.profileImageData == null"/>
+        <p>{{ req.user.name }}</p>
+
+        <md-button class="md-raised md-primary md-secondary"
+                   ng-disabled="dialog.clickedControls[$index].accept"
+                   ng-if="dialog.clickedControls[$index].approved == false &&
+                          dialog.clickedControls[$index].declined == false"
+                   ng-click="dialog.handleRequest(req.id, 'approved', $index)">
+          Accept
+        </md-button>
+        <md-button class="md-raised md-accent md-secondary"
+                   ng-if="dialog.clickedControls[$index].approved == false &&
+                          dialog.clickedControls[$index].declined == false"
+                   ng-disabled="dialog.clickedControls[$index].decline"
+                   ng-click="dialog.handleRequest(req.id, 'rejected', $index)">
+          Decline
+        </md-button>
+
+        <md-button class="md-raised"
+                   ng-if="dialog.clickedControls[$index].approved"
+                   ng-disabled="true">
+          Accepted
+        </md-button>
+        <md-button class="md-raised"
+                   ng-if="dialog.clickedControls[$index].declined"
+                   ng-disabled="true">
+          Declined
+        </md-button>
+
+      </md-list-item>
+    </md-list>
+  </md-dialog-content>
+</md-dialog>

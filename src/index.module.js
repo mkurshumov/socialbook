@@ -28,7 +28,8 @@
         PREVIEW: '/preview',
         REQUESTS: '/requests/',
         FEED_START_POST: '/feed?StartPostId=',
-        FEED_PAGE_SIZE: '&PageSize=3'
+        FEED_PAGE_SIZE: '&PageSize=3',
+        STATUS: '?status='
       }
     })
     .directive('compareTo', compareTo);

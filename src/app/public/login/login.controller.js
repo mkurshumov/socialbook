@@ -3,7 +3,7 @@
 
   angular
     .module('socialbook')
-    .controller('LoginController', function (httpRequester, CONSTANTS, webStoragesService) {
+    .controller('LoginController', function (httpRequester, CONSTANTS, webStoragesService, $state) {
       var vm = this,
         loginEndpoint = CONSTANTS.BASE + CONSTANTS.LOGIN;
 
@@ -35,10 +35,11 @@
 
       function processLogin(rememberMe, data) {
         if (rememberMe) {
-          webStoragesService.handleWebStorage('localStorage', data, true, 'dashboard');
+          webStoragesService.handleWebStorage('localStorage', data);
         } else {
-          webStoragesService.handleWebStorage('sessionStorage', data, true, 'dashboard');
+          webStoragesService.handleWebStorage('sessionStorage', data);
         }
+        $state.go('private.dashboard', {username:vm.credentials.username});
       }
     });
 

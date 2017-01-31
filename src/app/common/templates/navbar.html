@@ -24,8 +24,10 @@
               <md-item-template>
                 <div ui-sref="private.profile({username: item.username})">
                   <span class="item-title">
-                  <img ng-src="data:image/png;base64,{{item.profileImageData}}" alt="profile pic" class="margin-right8 va-mid wh25" ng-if="item.profileImageData"/>
-                  <img src="../../../assets/default-profile-picture.png" alt="profile pic" class="margin-right8 va-mid wh25" ng-if="!item.profileImageData"/>
+                  <img ng-src="data:image/png;base64,{{item.profileImageData}}" alt="profile pic"
+                       class="margin-right8 va-mid wh25" ng-if="item.profileImageData"/>
+                  <img src="../../../assets/default-profile-picture.png" alt="profile pic"
+                       class="margin-right8 va-mid wh25" ng-if="!item.profileImageData"/>
                 </span>
                   <span md-highlight-text="private.searchTerm" md-highlight-flags="^i">{{item.name}}</span>
                 </div>
@@ -40,27 +42,26 @@
 
       <div layout="row" layout-align="center center">
         <div class="profile-block" layout="row" layout-align="center center">
-          <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="pic" class="margin-right8 wh20r5" ng-if="private.profileImageData != 'null'"/>
-          <img src="../../../assets/default-profile-picture.png" alt="profile pic" class="margin-right8 va-mid wh20r5" ng-if="private.profileImageData == 'null'"/>
+          <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="pic" class="margin-right8 wh20r5"
+               ng-if="private.profileImageData != 'null'"/>
+          <img src="../../../assets/default-profile-picture.png" alt="profile pic" class="margin-right8 va-mid wh20r5"
+               ng-if="private.profileImageData == 'null'"/>
 
-          <p class="md-title" ui-sref="private.profile({username: private.currentUsername})">{{private.currentUsername}}</p>
+          <p class="md-title" ui-sref="private.profile({username: private.currentUsername})">
+            {{private.currentUsername}}</p>
         </div>
 
         <span class="txt-white-color" layout-margin hide-sm hide-gt-xs hide-xs show-gt-sm>|</span>
 
-        <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm>
-          <i class="material-icons va-mid">people</i>
-          <!--<md-tooltip md-direction="bottom">-->
-          <!--Friend Requests-->
-          <!--</md-tooltip>-->
+        <md-button ng-click="private.friendRequests.length > 0 && private.showFriendRequests($event)"
+                   class="md-icon-button md-icon-btn-fix"
+                   hide-sm hide-gt-xs hide-xs show-gt-sm>
+          <i class="material-icons va-mid" ng-class="{'txt-sec-color': private.friendRequests.length > 0}">people</i>
         </md-button>
         <md-button class="md-icon-button md-icon-btn-fix" hide-sm hide-gt-xs hide-xs show-gt-sm
                    ng-dblclick="private.handleNotifications()">
           <i class="material-icons va-mid" ng-if="!private.muteNotifications">notifications</i>
           <i class="material-icons va-mid" ng-if="private.muteNotifications">notifications_off</i>
-          <!--<md-tooltip md-direction="bottom">-->
-          <!--Notifications-->
-          <!--</md-tooltip>-->
         </md-button>
 
         <span class="txt-white-color" layout-margin hide-sm hide-gt-xs hide-xs show-gt-sm>|</span>
@@ -70,9 +71,6 @@
                      hide-sm hide-gt-xs hide-xs show-gt-sm
                      ng-click="$mdMenu.open($event)">
             <i class="material-icons va-mid">settings</i>
-            <!--<md-tooltip md-direction="bottom">-->
-            <!--Notifications-->
-            <!--</md-tooltip>-->
           </md-button>
           <md-menu-content width="3">
             <md-menu-item>
@@ -91,9 +89,6 @@
         <md-button class="md-icon-button md-icon-btn-fix" ng-disabled="private.isLogoutClicked"
                    ng-click="private.logout()" hide-sm hide-gt-xs hide-xs show-gt-sm>
           <i class="material-icons va-mid">exit_to_app</i>
-          <!--<md-tooltip md-direction="bottom">-->
-          <!--Notifications-->
-          <!--</md-tooltip>-->
         </md-button>
 
       </div>
@@ -122,9 +117,12 @@
 
     <md-content layout="column">
       <div layout-margin layout="column">
-        <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.changePasssss">
-          <i class="material-icons va-mid" layout-margin>people</i>
+        <md-list-item class="md-raised md-primary md-hue-2"
+                      ng-click="private.friendRequests.length > 0 && private.showFriendRequests($event)">
+          <i class="material-icons va-mid" layout-margin
+             ng-class="{'txt-sec-color': private.friendRequests.length > 0}">people</i>
           <p> Friend Requests </p>
+          <span ng-if="private.friendRequests.length > 0">({{private.friendRequests.length}})</span>
         </md-list-item>
 
         <md-list-item class="md-raised md-primary md-hue-2" ui-sref="private.changePasssss">
@@ -168,3 +166,5 @@
 
   </md-sidenav>
 </div>
+
+

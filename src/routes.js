@@ -63,6 +63,9 @@
 
       .state('private.dashboard', {
         url: '/dashboard',
+        params: {
+          username: null
+        },
         controller: 'DashboardController',
         controllerAs: 'dashboard',
         templateUrl: 'app/private/dashboard/dashboard.html'

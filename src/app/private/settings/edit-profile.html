@@ -2,7 +2,8 @@
   <md-card-title>
     <md-card-title-media>
       <div class="md-media-lg card-media margin-right15" style="border: 1px solid ghostwhite">
-        <img ng-src="data:image/png;base64,{{settings.currentUser.profileImageData}}" alt="pic"/>
+        <img ng-src="data:image/png;base64,{{settings.currentUser.profileImageData}}" alt="Profile Picture" ng-if="settings.currentUser.profileImageData != null"/>
+        <img src="../../../assets/default-profile-picture.png" alt="Profile Picture" ng-if="settings.currentUser.profileImageData == null"/>
       </div>
     </md-card-title-media>
     <md-card-title-text>

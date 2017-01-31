@@ -85,9 +85,13 @@ $sec-color40: #E65100;
   width: 60px!important;
   height: 60px!important;
 }
-.va-top {
-  vertical-align: top;
+
+.pointer-only:hover, .pointer-only:focus {
+  cursor: pointer;
+  outline: none;
 }
+
+
 
 //overrides
 .md-input-container {
@@ -129,6 +133,12 @@ md-content {
 .va-mid {
   vertical-align: middle;
 }
+.va-top {
+  vertical-align: top;
+}
+.va-sub {
+  vertical-align: sub;
+}
 
 //margins
 .center {
@@ -167,6 +177,9 @@ md-content {
 }
 .margin-left15 {
   margin-left: 15px;
+}
+.margin-top-5 {
+  margin-top: -5px;
 }
 
 //borders
@@ -309,7 +322,7 @@ md-content {
   margin: 0!important;
   padding: 0!important;
   &:hover {
-    color: black;
+    color: black!important;
   }
 }
 

@@ -3,14 +3,14 @@
 
   angular
     .module('socialbook')
-    .controller('DashboardController', function (httpRequester, CONSTANTS, webStoragesService) {
+    .controller('DashboardController', function (httpRequester, CONSTANTS, webStoragesService, $stateParams) {
       var vm = this,
         postEndpoint = CONSTANTS.BASE + CONSTANTS.POSTS,
         newsFeedStartPost = CONSTANTS.BASE + CONSTANTS.ME + CONSTANTS.FEED_START_POST,
         newsFeedPageSize = CONSTANTS.FEED_PAGE_SIZE,
         userWallEndpoint = CONSTANTS.BASE + CONSTANTS.USERS,
         userWallPageSize = '/wall?StartPostId=&PageSize=10',
-        username = webStoragesService.getItemFromStorages('username');
+        username = $stateParams.username || webStoragesService.getItemFromStorages('username');
 
       vm.selfPost = {
         postContent: vm.postContent,

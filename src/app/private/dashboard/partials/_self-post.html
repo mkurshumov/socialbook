@@ -1,0 +1,33 @@
+<div layout="row" layout-sm="column" layout-align="center center" ng-if="!private.dataLoaded">
+  <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+</div>
+
+<md-card ng-if="private.dataLoaded">
+  <md-card-title>
+    <md-card-title-media class="margin-right15 no-margin wh40">
+      <div class="md-media-sm card-media wh40">
+        <img ng-src="data:image/png;base64,{{private.profileImageData}}" alt="profilePicture" class="wh40"
+             ng-if="private.profileImageData != 'null'"/>
+        <img src="../../../../assets/default-profile-picture.png" alt="profilePicture" class="wh40"
+             ng-if="private.profileImageData == 'null'"/>
+      </div>
+    </md-card-title-media>
+    <md-card-title-text>
+      <form name="selfPostForm">
+        <md-input-container class="md-block no-margin" md-no-float layout-align="start center">
+            <textarea aria-label="Self Post" placeholder="Tell us what you think" rows="2"
+                      ng-model="dashboard.selfPost.postContent" name="selfPost"
+                      md-maxlength="350" md-no-resize></textarea>
+        </md-input-container>
+      </form>
+    </md-card-title-text>
+  </md-card-title>
+
+  <md-card-actions layout="row" layout-align="end center">
+    <md-button class="md-raised md-primary"
+               ng-disabled="!selfPostForm.$dirty || dashboard.selfPost.postContent.length == 0 ||
+                              selfPostForm.$invalid || dashboard.postBtnClicked"
+               ng-click="dashboard.postOnOwnWall()">Post
+    </md-button>
+  </md-card-actions>
+</md-card>

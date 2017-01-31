@@ -3,7 +3,7 @@
 
   angular
     .module('socialbook')
-    .controller('RegisterController', function (CONSTANTS, httpRequester, webStoragesService) {
+    .controller('RegisterController', function (CONSTANTS, httpRequester, webStoragesService, $state) {
       var vm = this,
         registerEndpoint = CONSTANTS.BASE + CONSTANTS.REGISTER;
 
@@ -23,7 +23,8 @@
         if (vm.newUser.password == vm.newUser.confirmPassword) {
           httpRequester.post(registerEndpoint, vm.newUser)
             .then(function (res) {
-              webStoragesService.handleWebStorage('localStorage', res.data, true, 'dashboard');
+              webStoragesService.handleWebStorage('localStorage', res.data);
+              $state.go('private.dashboard', {username:vm.newUser.username});
               vm.isRegClicked = false;
             }, function (err) {
               console.log(err);
