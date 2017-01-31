@@ -36,11 +36,15 @@
   <img ng-if="!profile.userData.coverImageData" src="../../../assets/default-cover.jpg" class="md-card-image" alt="Cover Image">
 </md-card>
 
-<div layout="row" layout-sm="column" layout-align="center center" ng-if="!profile.postsLoaded">
+<div layout="row" layout-sm="column" layout-align="center center"
+     ng-if="!profile.postsLoaded &&
+     (profile.userData.isFriend  && profile.userData.username != profile.currentUsername)">
   <md-progress-circular md-mode="indeterminate"></md-progress-circular>
 </div>
 
-<md-card ng-repeat="post in profile.posts" ng-if="profile.postsLoaded">
+<md-card ng-repeat="post in profile.posts"
+         ng-if="profile.postsLoaded &&
+         (profile.userData.isFriend || profile.userData.username == profile.currentUsername)">
   <md-card-title>
     <md-card-title-media class="margin-right15 pointer-img"
                          ng-mouseover="private.getUserPreview(post.author.username)"

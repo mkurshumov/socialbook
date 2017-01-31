@@ -3,7 +3,7 @@
 
   angular
     .module('socialbook')
-    .controller('ProfileController', function ($stateParams, CONSTANTS, httpRequester) {
+    .controller('ProfileController', function ($stateParams, CONSTANTS, httpRequester, webStoragesService) {
       var vm = this,
         profileEndpoint = CONSTANTS.BASE + CONSTANTS.USERS,
         requestEndpoint = CONSTANTS.BASE + CONSTANTS.ME + CONSTANTS.REQUESTS,
@@ -11,6 +11,8 @@
         userWallPageSize = '/wall?StartPostId=&PageSize=5';
 
       var user = $stateParams.username;
+
+      vm.currentUsername = webStoragesService.getItemFromStorages('userName');
 
       vm.dataLoaded = false;
       function getUser() {
@@ -27,6 +29,7 @@
                 vm.userData.gender = 'Other';
               }
               vm.dataLoaded = true;
+              getUserWall();
             }, function (err) {
               console.log(err);
             });
@@ -50,16 +53,17 @@
 
       vm.postsLoaded = false;
       function getUserWall() {
-        httpRequester.get(userWallEndpoint + user + userWallPageSize)
-          .then(function (res) {
-            console.log(res.data);
-            vm.posts = res.data;
-            vm.postsLoaded = true;
-          }, function (err) {
-            console.log(err);
-          });
+        if (vm.userData.isFriend || vm.userData.username == vm.currentUsername) {
+          httpRequester.get(userWallEndpoint + user + userWallPageSize)
+            .then(function (res) {
+              console.log(res.data);
+              vm.posts = res.data;
+              vm.postsLoaded = true;
+            }, function (err) {
+              console.log(err);
+            });
+        }
       }
-      getUserWall();
 
 
     });
